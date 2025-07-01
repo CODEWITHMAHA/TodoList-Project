@@ -19,7 +19,7 @@ const Todo = () => {
 
   // Delete Todo
   const handleDeleteTodo = (value) => {
-    const updatedTask = task.filter((currTask) => currTask != value);
+    const updatedTask = task.filter((currTask) => currTask.content != value);
     setTask(updatedTask);
   };
 
@@ -27,6 +27,17 @@ const Todo = () => {
   const handleClearTodoData = () => {
     setTask([]);
   };
+  // to handle checked todo
+  const handleCheckedTodo = (content)=>{
+    const updatedTask = task.map((currTask)=>{
+      if(currTask.content === content){
+        return{...currTask,checked:!currTask.checked}
+      }else{
+        return currTask;
+      }
+    });
+    setTask(updatedTask)
+  }
 
   return (
     <section className="w-full min-h-screen bg-purple-950 text-white flex flex-col items-center p-10 sm:p-5">
@@ -35,13 +46,16 @@ const Todo = () => {
         <TodoDateTime />
       </header>
       <TodoForm onAddTodo={handleFormSubmit} />
+
       <section className="w-full flex justify-center">
         <ul className="w-full max-w-sm">
           {task.map((currTask) => (
             <TodoList
               key={currTask.id }
               data={currTask.content}
+              checked={currTask.checked}
               onHandleDeleteTodo={handleDeleteTodo}
+              onHandleCheckedTodo={handleCheckedTodo}
             />
           ))}
         </ul>

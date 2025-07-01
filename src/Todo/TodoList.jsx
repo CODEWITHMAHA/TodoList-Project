@@ -1,16 +1,17 @@
 import { MdOutlineCheck, MdDeleteForever } from "react-icons/md";
-const TodoList = ({data,onHandleDeleteTodo}) => {
+const TodoList = ({data,checked,onHandleDeleteTodo,onHandleCheckedTodo}) => {
+  
   return (
     <li
-              className="max-w-[400px] min-h-10 sm:p-5 p-2 rounded-tl-2xl rounded-br-2xl mt-8 bg-rose-200 text-2xl text-black overflow-hidden flex flex-row items-center justify-center gap-3"
+              className="max-w-[400px] min-h-10 sm:p-5 p-2 rounded-tl-2xl rounded-br-2xl mt-8 bg-rose-200 text-2xl text-black overflow-hidden flex flex-row items-center justify-center gap-2"
             >
-              <div className="break-words w-full">{data}</div>
+              <div className={`break-words w-full ${checked ? "line-through" : ""}`}>{data}</div>
               <div className="flex flex-row gap-5 mt-2 sm:mt-0">
                 <button
+                  onClick={()=>onHandleCheckedTodo(data)}
                   type="button"
                   className="flex items-center justify-center w-10 h-10 rounded-full bg-green-500 hover:bg-green-600 text-white transition-colors cursor-pointer"
                   title="Mark as done"
-                  // onClick={addTask}
                 >
                   <MdOutlineCheck size={24} />
                 </button>
