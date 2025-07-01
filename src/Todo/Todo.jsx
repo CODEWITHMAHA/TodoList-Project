@@ -2,20 +2,26 @@ import { useState } from "react";
 import TodoForm from "./TodoForm";
 import TodoList from "./TodoList";
 import TodoDateTime from "./TodoDateTime";
+import { getLocalStorageTodoData , setLocalStorageTodoData } from "./TodoLocalStorage";
+
+
+
 
 const Todo = () => {
-  const [task, setTask] = useState([]);
+
+  const [task, setTask] = useState(()=>getLocalStorageTodoData());
 
   const handleFormSubmit = (inputValue) => {
     const {id,content,checked} = inputValue;
     if (!content) return; //to check if the input field is empty or not
-    //to checkid the data is already exist or not
-    // if (task.includes(inputValue)) return; 
+    //to checked the data is already exist or not
     const ifTodoContentMatched = task.find((currTask) => currTask.content === content);
     if(ifTodoContentMatched) return;
 
     setTask((prevTask) => [...prevTask, {id,content,checked}]);
   };
+  // Add Data to LocalStorage
+    setLocalStorageTodoData(task)
 
   // Delete Todo
   const handleDeleteTodo = (value) => {
